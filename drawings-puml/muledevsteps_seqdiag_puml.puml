@@ -1,0 +1,14 @@
+@startuml
+skinparam Style strictuml
+skinparam SequenceMessageAlignment center
+actor Developer
+Developer -> DesignCenter: Anypoint Platform\nhttps://anypoint.frb.org
+DesignCenter -> DesignCenter: Design api spec\ceezero-pricing-api-b1pxl14
+DesignCenter -> Exchange: api spec\nassetver:1.0.2(oas) apiver-v1
+DesignCenter -> DesignCenter: Publish api spec
+DesignCenter -> DesignCenter: Document api\nReview w. customers
+DesignCenter -> APIManager: Approved api spec
+APIManager -> APIManager: Manage api from Exchange\nassetver\apiver
+APIManager -> RuntimeManager: api instance
+RuntimeManager -> RuntimeManager: Deploy
+@enduml

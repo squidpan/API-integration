@@ -1,0 +1,41 @@
+# Example .bashrc file for Git Bash on Windows 10
+echo -e "e-dotbashrc\n"
+
+# Set the prompt
+# 
+##export PS1="\u@\h:\w\$ "
+export PS1="\w\$ "
+
+export API_
+# Alias for listing files
+alias ls='ls --color=auto'
+
+# Alias for changing directories
+alias cd='cd'
+
+# Add Node.js to PATH
+#export PATH=$PATH:/c/Users/YourUserName/node-v10.15.3-win-x64/
+
+# Alias for opening Visual Studio Code
+#alias code='/c/Users/YourUserName/vscode/bin/code'
+#
+# PROJECT ENV VARs
+# . ~/.setprjenvs.sh
+
+export API_ROOT=APIs
+export API_ROOT_DIR=/c/pjs/${API_ROOT}
+export API_ROOT_TOOLS_DIR=${API_ROOT_DIR}
+#export API_ROOT_PROJECT=API-Integration
+#export API_PROJECT_NAME=API-Integration
+#export API_ROOT_STUDIO_DIR=${API_ROOT_DIR}/${API_ROOT_STUDIO}
+#export API_ROOT_DIR=/c/pjs/APIs
+#export API_ROOT_DIR=/c/pjs/APIs
+#export API_ROOT_DIR=/c/pjs/APIs
+#export API_ROOT_DIR=/c/pjs/APIs
+#
+# set up default env vars
+#
+echo -e "calling ${API_ROOT_TOOLS_DIR}/setup_prj_api-default.sh"
+. /c/pjs/APIs/tools/setup_prj_api-default.sh
+
+echo -e "\n x-dotbashrc"

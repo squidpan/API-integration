@@ -1,0 +1,19 @@
+@startmindmap
+* root /npqs-api
+** Step 1: Design
+** Step 2: Publish to Exchange
+** Step 3: Create api in API Manager
+** Step 4: Implement API
+***_ Step a: Import Gateway Proxy Template into Anypoint Studio
+***_ Step a: Import the Proxy Template into Anypoint Studio
+***_ Step a: Update pom.xml (Proxy Template)
+***_ Step a: Update log4j2.xml (Proxy Template)
+***_ Step a: Update APIManager properties files (Proxy Template)
+***_ Step a: Update RuntimeManager properties files (Proxy Template)
+** Step 5: Deploy to RuntimeManager
+** Step 6: Test
+***_ request: 
+***_ response: 
+***_ foobar
+** Step 7: Debugging (optional)
+@endmindmap
