@@ -1,30 +1,70 @@
 @startuml
 
+skinparam ComponentStyle rectangle
+left to right direction
 set namespaceSeparator none
-package "Mulesoft dev" {
+
+node "Mulesoft dev" {
     
     package "http://ny-dev-nit-nis-api.awscfs.frb.pvt/dev" {
-        [ctd] as ctd
-        [api] as api
-        [steaming] as streaming
-        [spline] as spline
-
-        ctd -[hidden]-- api
-        api -[hidden]--streaming
-        streaming -[hidden]--spline
+        [ctd\napi\nstreaming\nspline] as assetdev
+    
     }
  
     package "http://ny-dev-nit-nis-api.awscfs.frb.pvt/test" {
-        [ctd] as ctd1
-        [api] as api1
-        [steaming] as streaming1
-        [spline] as spline1
-
-        ctd1 -[hidden]-- api1
-        api1 -[hidden]--streaming1
-        streaming1 -[hidden]--spline1
+        [ctd\napi\nstreaming\nspline] as assettest
+    
+        'assetdev -[hidden]-- assettest
     }
 
-
+    package "http://ny-dev-nit-nis-api.awscfs.frb.pvt/uat" {
+        [ctd\napi\nstreaming\nspline] as assetuat
+    
+        'assetdev -[hidden]-- assettest
+    }
+    'assetdev --> assettest
 }
+'left to right direction
+
+node "DNS//alias dev" {
+    [DNS://npqs-dev-api.frb.org] as aliasdev
+}
+
+node "DNS//alias test" {
+    [DNS://npqs-test-api.frb.org] as aliastest
+}
+node "DNS//alias uat" {
+    [DNS://npqs-uat-api.frb.org] as aliasuat
+}
+
+
+'OCP4 -dev
+
+node "OCP4 db1me1" {
+    
+    package "dev-dev" {
+        [http://ny-dev-cc1-npqs-01.apps.db1me1.dev.ocp.fras.frb.org] as ablaydevdev
+    
+    }
+ 
+    package "dev-test" {
+        [http://ny-dev-cc1-npqs-01.apps.db1me1.dev.ocp.fras.frb.org] as ablaydevtest
+    
+    }
+
+    package "dev-uat" {
+        [http://ny-dev-cc1-npqs-01.apps.db1me1.dev.ocp.fras.frb.org] as ablaydevuat
+    
+    
+    }
+    
+}
+
+assetdev --> aliasdev
+assettest --> aliastest
+assetuat --> aliasuat
+aliasdev --> ablaydevdev
+aliastest --> ablaydevtest
+aliasuat --> ablaydevuat
+
 @enduml
