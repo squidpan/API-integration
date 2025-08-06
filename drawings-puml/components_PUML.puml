@@ -1,0 +1,35 @@
+@startuml
+
+skinparam ComponentStyle rectangle
+
+left to right direction
+
+package "Mulesoft dev" {
+  [Component A1] as A1
+  [Component A2] as A2
+  [Component A3] as A3
+
+}
+
+package "alias DNS" {
+  [Component B1] as B1
+  [Component B2] as B2
+  [Component B3] as B3
+}
+
+package "OCP4 db1me1" {
+  [Component C1] as C1
+  [Component C2] as C2
+  [Component C3] as C3
+}
+
+A1 --> B1
+B1 --> C1
+
+A2 --> B2
+B2 --> C2
+
+A3 --> B3
+B3 --> C3
+
+@enduml

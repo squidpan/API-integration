@@ -1,0 +1,30 @@
+@startuml
+
+set namespaceSeparator none
+package "Mulesoft dev" {
+    
+    package "http://ny-dev-nit-nis-api.awscfs.frb.pvt/dev" {
+        [ctd] as ctd
+        [api] as api
+        [steaming] as streaming
+        [spline] as spline
+
+        ctd -[hidden]-- api
+        api -[hidden]--streaming
+        streaming -[hidden]--spline
+    }
+ 
+    package "http://ny-dev-nit-nis-api.awscfs.frb.pvt/test" {
+        [ctd] as ctd1
+        [api] as api1
+        [steaming] as streaming1
+        [spline] as spline1
+
+        ctd1 -[hidden]-- api1
+        api1 -[hidden]--streaming1
+        streaming1 -[hidden]--spline1
+    }
+
+
+}
+@enduml
