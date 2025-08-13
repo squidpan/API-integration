@@ -67,10 +67,4 @@ aliasdev --> ablaydevdev
 aliastest --> ablaydevtest
 aliasuat --> ablaydevuat
 
-json JSON {
-   "fruit":"Apple",
-   "size":"Large",
-   "color": ["Red", "Green"]
-}
-
 @enduml
