@@ -1,0 +1,19 @@
+@startgantt
+
+[6]     as [r1] lasts 6 days and is colored in pink
+[c5] as [w1] lasts 5 days and is colored in green
+[1] as [b1] lasts 1 days
+[c5] as [w2] lasts 5 days and is colored in green
+[1] as [b2] lasts 1 days
+[c4] as [w3] lasts 4 days and is colored in green
+[1] as [b3] lasts 1 days
+[c7] as [w4] lasts 4 days and is colored in green
+'[rs2: 6] as [r2] lasts 6 days and is colored in pink
+
+[r1] -> [w1]
+[w1] -> [b1]
+[b1] -> [w2]
+[w2] -> [b2]
+[b2] -> [w3]
+[w3] -> [b3]
+@endgantt

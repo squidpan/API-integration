@@ -1,0 +1,17 @@
+@startgantt
+<style>
+ganttDiagram {
+  task {
+    BackGroundColor red
+    LineColor Green 
+  }
+  undone {
+    BackGroundColor GreenYellow
+  }
+}
+</style>
+
+[restbreaks] lasts 23 days
+[restbreaks] is 62.5% completed
+[care] lasts 23 days and is 37.5% complete
+@endgantt

@@ -1,0 +1,22 @@
+@startuml Raw usage - Images
+'Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+'SPDX-License-Identifier: MIT (For details, see https://github.com/awslabs/aws-icons-for-plantuml/blob/master/LICENSE)
+
+' Uncomment the line below for "dark mode" styling
+'!$AWS_DARK = true
+
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v20.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/ArtificialIntelligence/SageMakerModel.puml
+!include AWSPuml/Robotics/RoboMaker.puml
+
+component "$SageMakerModelIMG()" as myMLModel
+database "$RoboMakerIMG()" as myRoboticService
+RoboMaker(mySecondFunction, "Reinforcement Learning", "Gazebo")
+
+rectangle "$SageMakerModelIMG()" as mySecondML
+
+myMLModel --> myRoboticService
+mySecondFunction --> mySecondML
+
+@enduml
