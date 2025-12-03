@@ -1,0 +1,108 @@
+@startuml
+skinparam ComponentStyle rectangle
+left to right direction
+set namespaceSeparator none
+
+header Page Header
+footer Page %page% of %lastpage%
+
+title Gresham Rest API Client Requests to Pricing Resourcs
+
+node "Rest API Clients - uat" {
+
+    package "TradingApp/devuat" {
+        [market\ntheo] as restclientuat
+    
+    }
+
+}
+
+node "Gresham API Proxy - dev" {
+    
+    package "baseurl/dev" {
+        [bb price\ngreshamprice\ntheoprice] as assetdev
+    
+    }
+ 
+    package "baseurl/test" {
+        [bb price\ngreshamprice\ntheoprice] as assettest
+    
+        'assetdev -[hidden]-- assettest
+    }
+
+    package "baseurl/uat" {
+        [bb price\ngreshamprice\ntheoprice] as assetuat
+        'assetdev -[hidden]-- assettest
+    }
+    'assetdev --> assettest
+}
+'left to right direction
+
+node "DNS//alias - dev" {
+    [DNS://dev-dns-url] as aliasdev
+}
+
+node "DNS//alias test" {
+    [DNS://test-dns-url] as aliastest
+}
+node "DNS//alias uat" {
+    [DNS://uat-dns-url] as aliasuat
+}
+
+
+'On-prem Private Cloud (OCP4) -dev
+
+node "Onprem Gresham resource-servers" {
+    
+    package "dev-dev" {
+        [http://dev-rscsrvr-baseurl] as ablaydevdev
+    
+    }
+ 
+    package "dev-test" {
+        [http://dev-rscsrvr-baseurl] as ablaydevtest
+    
+    }
+
+    package "dev-uat" {
+        [http://dev-rscsrvr-baseurl] as ablaydevuat
+    
+    
+    }
+    
+}
+
+node "Onprem Gresham pricing-server" {
+    
+    package "dev" {
+        [dev-linuxsrvr] as greshampricingdev
+    
+    }
+ 
+    package "dev2" {
+        [dev-linuxsrvr] as greshampricingdev2
+    
+    }
+
+    package "integration" {
+        [dev-linuxsrvr] as greshampricingint
+    
+    
+    }
+    
+}
+
+restclientuat --> assetuat: request/n(e.g. /greshamprice/bonds)
+
+restclientuat <-- assetuat: response payload/n(e.g. bid/ask, refdata)
+assetuat --> aliasuat
+
+assetdev --> aliasdev
+assettest --> aliastest
+aliastest --> ablaydevtest
+aliasuat --> ablaydevuat: request resources\ninternal rest endpoints
+ablaydevuat --> assetuat: response payload json
+aliasdev --> ablaydevdev
+ablaydevuat <--> greshampricingint
+
+@enduml

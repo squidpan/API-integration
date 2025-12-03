@@ -1,0 +1,381 @@
+openapi: 3.0.3
+info:
+  title: Gresham - OpenAPI 3.0
+  description: |-
+    This is a sample Gresham Server based on the OpenAPI 3.0 specification. 
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0 
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - url: https://greshambaseurl/devGreshamData/Gresham/api/v1
+    description: Development Environment
+components:
+  parameters:
+    MonthYear:
+      name: monthYear
+      in: query
+      description: The Month year used to retrieve ctd results. Default to the current month and year.
+      required: false
+      schema:
+        type: string
+        example: mmYYYY
+    Months:
+      name: month
+      in: query
+      description: The month used to calulate the period. Default to the current month.
+      required: false
+      schema:
+        type: string
+        enum:
+          - JANUARY
+          - FEBRUARY
+          - MARCH
+          - APRILE
+          - MAY
+          - JUNE
+          - JULY
+          - SEPTEMBER
+          - OCTOBER
+          - NOVEMBER
+          - DECEMBER
+    PriceSecurityGroup:
+      name: security_group
+      in: path
+      description: Instrument Seurity Group
+      required: true
+      schema:
+        type: string
+        enum:
+          - "ust"
+          - "agc"
+          - "tba"
+    PQS_ID:
+      name: WI_STATE
+      in: 'query'
+      required: false
+      schema:
+        type: string    
+    WI_STATE:
+      name: WI_STATE
+      in: 'query'
+      required: false
+      schema:
+        type: string
+    PriceDataAttributeTypes:
+      name: attributeNames
+      in: 'query'
+      description: "Commad-delimited set of attributes"
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/PriceDataAttributeType'
+  securitySchemes:
+    okta_auth:
+      type: oauth2
+      description: Okta Token
+      flows:
+        clientCredentials:
+          tokenUrl: https://frbanks-qa.okta.com/oauth2/blahblah1122/token
+          scopes:
+            mktdata.api.ust.read: Read accesss to UST instruments
+            mktdata.api.agc.read: Read accesss to AGC instruments
+            mktdata.api.tba.read: Read accesss to TBA instruments
+            mktdata.api.ctd.read: Read accesss to CTD instruments
+            mktdata.api.ctd.execute: ExecuteCTD Run permission
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+  schemas:
+    GreshamDataPriceResults:
+      type: object
+      properties:
+        results:
+          type: object
+          properties:
+            pqsId:
+              type: string
+              example: "NOTE:91282CDN8"
+            cusip:
+              type: string
+              example: "91282CDN8"
+            attributes:
+              type: string
+              items:
+                $ref: '#/components/schemas/Price'
+    
+    Price:
+      anyOf:
+        - $ref: '#/components/schemas/ASK'
+        - $ref: '#/components/schemas/ASK_DM'
+        - $ref: '#/components/schemas/ASK_YIELD'
+        - $ref: '#/components/schemas/BID'
+        - $ref: '#/components/schemas/BID_DM'
+        - $ref: '#/components/schemas/BID_YIELD'
+        - $ref: '#/components/schemas/ID_CUSIP'
+        - $ref: '#/components/schemas/PQS_ID'
+    ACTUAL_TERM:
+      type: object
+      properties:
+        ACTUAL_TERM:
+          $ref: '#/components/schemas/StringDataAttribute'
+    ANNOUNCEMENT_DATE:
+      type: object
+      properties:
+        ANNOUNCEMENT_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    ASK:
+      type: object
+      properties:
+        ASK:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    ASK_256:
+      type: object
+      properties:
+        ASK_256:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    ASK_DM:
+      type: object
+      properties:
+        ASK_DM:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    ASK_DRVD_YIELD:
+      type: object
+      properties:
+        ASK_DRVD_YIELD:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    ASK_YIELD:
+      type: object
+      properties:
+        ASK_YIELD:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    AUCTION_DATE:
+      type: object
+      properties:
+        AUCTION_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    BENCHMARK_RUN:
+      type: object
+      properties:
+        BENCHMARK_RUN:
+          $ref: '#/components/schemas/StringDataAttribute'
+    BID:
+      type: object
+      properties:
+        BID:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    
+    BID_256:
+      type: object
+      properties:
+        BID_256:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    
+    BID_DM:
+      type: object
+      properties:
+        BID_DM:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    BID_DRVD_YIELD:
+      type: object
+      properties:
+        BID_DRVD_YIELD:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    BID_YIELD:
+      type: object
+      properties:
+        BID_YILED:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    COUPON_RATE:
+      type: object
+      properties:
+        COUPON_RATE:
+          $ref: '#/components/schemas/FloatDataAttribute'
+    DATE_OF_ISSUE:
+      type: object
+      properties:
+        DATE_OF_ISSUE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    MESSAGE_TYPE:
+      type: object
+      properties:
+        MESSAGE_TYPE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    ID_CUSIP:
+      type: object
+      properties:
+        ID_CUSIP:
+          $ref: '#/components/schemas/StringDataAttribute'
+    GENERIC_TERM:
+      type: object
+      properties:
+        GENERIC_TERM:
+          $ref: '#/components/schemas/StringDataAttribute'
+    MATURITY_DATE:
+      type: object
+      properties:
+        MATURITY_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    ON_THE_RUN_WI_COUNT:
+      type: object
+      properties:
+        ON_THE_RUN_WI_COUNT:
+          $ref: '#/components/schemas/IntegerDataAttribute'
+    OPICS_SECID:
+      type: object
+      properties:
+        ACTUAOPICS_SECIDL_TERM:
+          $ref: '#/components/schemas/StringDataAttribute'
+    ORIGINAL_ISSUE_DATE:
+      type: object
+      properties:
+        ORIGINAL_ISSUE_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    PQS_ID:
+      type: object
+      properties:
+        PQS_ID:
+          $ref: '#/components/schemas/StringDataAttribute'
+    RAW_TIME:
+      type: object
+      properties:
+        RAW_TIME:
+          $ref: '#/components/schemas/StringDataAttribute'
+    RAW_DATE:
+      type: object
+      properties:
+        RAW_DATE:
+          type: object
+          $ref: '#/components/schemas/StringDataAttribute'
+    SECURITY_TYPE:
+      type: object
+      properties:
+        SECURITY_TYPE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    SETTLEMENT_DATE:
+      type: object
+      properties:
+        SETTLEMENT_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    UPDATE_DATE:
+      type: object
+      properties:
+        UPDATE_DATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    UPDATE_TIME:
+      type: object
+      properties:
+        UPDATE_TIME:
+          $ref: '#/components/schemas/StringDataAttribute'
+    VENDORS:
+      type: object
+      properties:
+        VENDORS:
+          $ref: '#/components/schemas/StringDataAttribute'
+    VENDOR_SOURCE:
+      type: object
+      properties:
+        VENDOR_SOURCE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    WI_STATE:
+      type: object
+      properties:
+        WI_STATE:
+          $ref: '#/components/schemas/StringDataAttribute'
+    AttributeStatusEnum:
+      description: Data attribute status
+      type: string
+      enum:
+        - NORMAL
+        - SUSPECT
+    DataAttribute:
+      type: object
+      properties:
+        timestamp:
+          description: The timestamp representing last update. YYYY-MM-DDThh:mm:ss.sssZ
+          type: string
+          format: date-time
+          example: 193791blahblah
+    FloatDataAttribute:
+      allOf:
+        - type: object
+          properties:
+            value:
+              type: number
+        - $ref: '#/components/schemas/DataAttribute'
+    IntegerDataAttribute:
+      allOf:
+        - type: object
+          properties:
+            value:
+              type: integer
+        - $ref: '#/components/schemas/DataAttribute'
+    
+    StringDataAttribute:
+      allOf:
+        - type: object
+          properties:
+            value:
+              type: string
+        - $ref: '#/components/schemas/DataAttribute'
+    
+    DateDataAttribute:
+      allOf:
+        - type: object
+          properties:
+            value:
+              type: string
+              format: date
+        - $ref: '#/components/schemas/DataAttribute'
+    TimeDataAttribute:
+      allOf:
+        - type: object
+          properties:
+            value:
+              type: string
+              format: time
+        - $ref: '#/components/schemas/DataAttribute'
+    PriceDataAttributeType:
+      type: string
+      description: A comma-delimited string of benchmark attributes available
+      enum:
+        - VENDOR_SOURCE
+        - ACTUAL_TERM
+        - ANNOUNCEMENT_DATE
+        - AUCTION_DATE
+        - COUPON_RATE
+        - DATE_OF_ISSUE
+        - GENERIC_TERM
+        - MATURITY_DATE
+        - ON_THE_RUN_WI_COUNT
+        - OPICS_SECID
+        - ORIGINAL_ISSUE_DATE
+        - SECURITY_TYPE
+        - SETTLEMENT_DATE
+        - WI_STATE
+    BenchmarkDataAttributeType:
+      type: string
+      description: A comma-delimited string of benchmark attributes available
+      enum:
+        - VENDOR_SOURCE
+        - ACTUAL_TERM
+        - ANNOUNCEMENT_DATE
+        - AUCTION_DATE
+        - COUPON_RATE
+        - DATE_OF_ISSUE
+        - GENERIC_TERM
+        - MATURITY_DATE
+        - ON_THE_RUN_WI_COUNT
+        - OPICS_SECID
+        - ORIGINAL_ISSUE_DATE
+        - SECURITY_TYPE
+        - SETTLEMENT_DATE
+        - WI_STATE
